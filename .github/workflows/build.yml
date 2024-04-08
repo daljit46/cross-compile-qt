@@ -1,0 +1,81 @@
+name: Build Qt 6
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SCCACHE_GHA_ENABLED: true
+
+    steps:
+    - name: Install build deps
+      run: >
+        sudo apt update && 
+        sudo apt install
+        cmake
+        ninja-build
+        libgl1-mesa-dev
+        libglu1-mesa-dev
+
+    - name: Install Clang 17
+      run: |
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 17
+
+    - name: Restore cache files
+      id: qtcache
+      uses: actions/cache/restore@v3
+      with:
+        path: ~/.qtinstall
+        key: ${{ runner.os }}-qtinstall-${{ matrix.sanitizer }}
+        restore-keys: |
+          ${{ runner.os }}-qtinstall-${{ matrix.sanitizer }}
+
+    - name: Run sccache-cache
+      uses: mozilla-actions/sccache-action@v0.0.3
+
+    - name: Setup Qt sources
+      if: steps.qtcache.outputs.cache-hit != 'true'
+      run: |
+        git clone git://code.qt.io/qt/qt5.git qt6
+        cd qt6 && git checkout 6.5.3
+        ./init-repository --module-subset=qtbase,qtdeclarative,qtshadertools,qtsvg,qt5compat
+        ./configure -list-features
+
+    - name: Checkout 
+      uses: actions/checkout@v4
+
+    - name: Configure Qt
+      if: steps.qtcache.outputs.cache-hit != 'true'
+      run: >
+        cd qt6 &&
+        cmake
+        -B build
+        -G Ninja
+        -D CMAKE_BUILD_TYPE=Release
+        -D CMAKE_C_COMPILER=clang-17
+        -D CMAKE_CXX_COMPILER=clang++-17
+        -D CMAKE_TOOLCHAIN_FILE=toolchain.cmake
+        -D LLVM_TARGETS_TO_BUILD="ARM"
+        -D CMAKE_C_COMPILER_LAUNCHER=sccache
+        -D CMAKE_CXX_COMPILER_LAUNCHER=sccache
+        -D QT_BUILD_TESTS=OFF
+        -D QT_BUILD_EXAMPLES=OFF
+        -D QT_BUILD_SUBMODULES="qtbase;qtdeclarative;qtshadertools;qtsvg;qt5compat"
+
+    - name: Build Qt
+      run: >
+        cmake --build qt6/build --verbose
+
+    - name: Install Qt
+      run: >
+        cmake --install qt6/build --prefix ~/.qtinstall
+
+    - name: Save cache files
+      id: qtcache
+      uses: actions/cache/save@v3
+      with:
+        path: ~/.qtinstall
+        key: ${{ runner.os }}-qtinstall

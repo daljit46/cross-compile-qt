@@ -1,1 +1,4 @@
+set(CMAKE_SYSTEM_PROCESSOR "arm")
+set(CMAKE_SYSTEM_NAME "Generic")
+
 
