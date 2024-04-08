@@ -17,9 +17,6 @@ jobs:
         ninja-build
         libgl1-mesa-dev
         libglu1-mesa-dev
-        binutils-arm-linux-gnueabihf
-      	libc6-dev-arm64-cross
-        gcc-11-cross-base
 
     - name: Install Clang 17
       run: |
@@ -33,7 +30,10 @@ jobs:
         binutils-aarch64-linux-gnu
         libgcc1-armhf-cross
         gcc-aarch64-linux-gnu
-
+        gcc-11-cross-base
+      	libc6-dev-arm64-cross
+        binutils-arm-linux-gnueabihf
+   
     - name: Restore cache files
       id: qtcache
       uses: actions/cache/restore@v3
