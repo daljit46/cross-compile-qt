@@ -74,7 +74,6 @@ jobs:
         cmake --install qt6/build --prefix ~/.qtinstall
 
     - name: Save cache files
-      id: qtcache
       uses: actions/cache/save@v3
       with:
         path: ~/.qtinstall
