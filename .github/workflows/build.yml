@@ -17,6 +17,8 @@ jobs:
         ninja-build
         libgl1-mesa-dev
         libglu1-mesa-dev
+        binutils-arm-linux-gnueabihf
+
 
     - name: Install Clang 17
       run: |
