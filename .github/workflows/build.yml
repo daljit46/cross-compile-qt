@@ -36,6 +36,9 @@ jobs:
     - name: Run sccache-cache
       uses: mozilla-actions/sccache-action@v0.0.3
 
+    - name: Checkout 
+      uses: actions/checkout@v4
+
     - name: Setup Qt sources
       if: steps.qtcache.outputs.cache-hit != 'true'
       run: |
@@ -43,9 +46,6 @@ jobs:
         cd qt6 && git checkout 6.5.3
         ./init-repository --module-subset=qtbase,qtdeclarative,qtshadertools,qtsvg,qt5compat
         ./configure -list-features
-
-    - name: Checkout 
-      uses: actions/checkout@v4
 
     - name: Configure Qt
       if: steps.qtcache.outputs.cache-hit != 'true'
