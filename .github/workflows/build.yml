@@ -27,7 +27,7 @@ jobs:
         sudo ./llvm.sh 17
 
     - name: Install cross-compiling tools
-      run: |
+      run: >
         sudo apt install
         binutils-aarch64-linux-gnu
         libgcc1-armhf-cross
