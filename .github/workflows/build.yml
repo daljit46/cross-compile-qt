@@ -32,7 +32,6 @@ jobs:
         gcc-aarch64-linux-gnu
         gcc-11-cross-base
       	libc6-dev-arm64-cross
-        binutils-arm-linux-gnueabihf
    
     - name: Restore cache files
       id: qtcache
