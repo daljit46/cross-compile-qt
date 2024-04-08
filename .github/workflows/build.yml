@@ -18,6 +18,7 @@ jobs:
         libgl1-mesa-dev
         libglu1-mesa-dev
         binutils-arm-linux-gnueabihf
+        binutils-aarch64-linux-gnu
 
 
     - name: Install Clang 17
