@@ -77,7 +77,7 @@ jobs:
         -D QT_BUILD_TESTS=OFF
         -D QT_BUILD_EXAMPLES=OFF
         -D QT_BUILD_SUBMODULES="qtbase;qtdeclarative;qtshadertools;qtsvg;qt5compat"
-        -D QT_HOST_PATH=${{ github.workspace }}/qt/6.5.3/gcc_64
+        -D QT_HOST_PATH=${{ github.workspace }}/qt/Qt/6.5.3/gcc_64
 
     - name: Build Qt
       run: >
