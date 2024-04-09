@@ -64,6 +64,11 @@ jobs:
         ./init-repository --module-subset=qtbase,qtdeclarative,qtshadertools,qtsvg,qt5compat
         ./configure -list-features
 
+    - name: List Qt dirs again
+      run: |
+        echo $Qt6_DIR
+        ls $Qt6_DIR
+
     - name: Configure Qt
       if: steps.qtcache.outputs.cache-hit != 'true'
       run: >
