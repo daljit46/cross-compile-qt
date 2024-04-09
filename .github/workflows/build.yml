@@ -38,8 +38,8 @@ jobs:
         set-env: true
     - name: Log Qt dirs
       run: |
+        echo $Qt6_DIR
         ls $Qt6_DIR
-        ls $Qt6_DIR/gcc_64
 
     - name: Restore cache files
       id: qtcache
@@ -66,8 +66,6 @@ jobs:
 
     - name: Configure Qt
       if: steps.qtcache.outputs.cache-hit != 'true'
-      env:
-        QT_HOST_PATH: ${{ github.workspace }}/qt/Qt/6.5.3/gcc_64
       run: >
         ls -la ${{ github.workspace }}/qt/Qt/6.5.3/gcc_64 &&
         cd qt6 &&
@@ -84,7 +82,7 @@ jobs:
         -D QT_BUILD_TESTS=OFF
         -D QT_BUILD_EXAMPLES=OFF
         -D QT_BUILD_SUBMODULES="qtbase;qtdeclarative;qtshadertools;qtsvg;qt5compat"
-        -D QT_HOST_PATH=${{ github.workspace }}/qt/Qt/6.5.3/gcc_64
+        -D QT_HOST_PATH=$Qt6_DIR
 
     - name: Build Qt
       run: >
