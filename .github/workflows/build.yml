@@ -39,10 +39,7 @@ jobs:
         arch: gcc_64
         dir: ${{ github.workspace }}/qt
         set-env: true
-    - name: Log Qt dirs
-      run: |
-        echo $Qt6_DIR
-        ls $Qt6_DIR
+        modules: "qt5compat qtshadertools qtimageformats"
 
     - name: Restore cache files
       id: qtcache
