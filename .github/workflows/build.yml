@@ -62,6 +62,8 @@ jobs:
 
     - name: Configure Qt
       if: steps.qtcache.outputs.cache-hit != 'true'
+      env:
+        QT_HOST_PATH: ${{ github.workspace }}/qt
       run: >
         cd qt6 &&
         cmake
@@ -77,7 +79,6 @@ jobs:
         -D QT_BUILD_TESTS=OFF
         -D QT_BUILD_EXAMPLES=OFF
         -D QT_BUILD_SUBMODULES="qtbase;qtdeclarative;qtshadertools;qtsvg;qt5compat"
-        -D QT_HOST_PATH=${{ github.workspace }}/qt
 
     - name: Build Qt
       run: >
