@@ -23,6 +23,7 @@ jobs:
         mesa-common-dev
         libgles2-mesa-dev
         libegl1-mesa-dev
+        freeglut3-dev
 
     - name: Install Clang 17
       run: |
