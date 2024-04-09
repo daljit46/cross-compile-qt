@@ -36,6 +36,10 @@ jobs:
         arch: gcc_64
         dir: ${{ github.workspace }}/qt
         set-env: true
+    - name: Log Qt dirs
+      run: |
+        ls $Qt6_DIR
+        ls $Qt6_DIR/gcc_64
 
     - name: Restore cache files
       id: qtcache
