@@ -26,13 +26,8 @@ jobs:
 
     - name: Install cross-compiling tools
       run: >
-        sudo apt install
-        binutils-aarch64-linux-gnu
-        libgcc1-armhf-cross
-        gcc-aarch64-linux-gnu
-        gcc-11-cross-base
-      	libc6-dev-arm64-cross
-   
+        sudo apt install crossbuild-essential-arm64 
+
     - name: Restore cache files
       id: qtcache
       uses: actions/cache/restore@v3
