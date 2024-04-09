@@ -1,4 +1,4 @@
-ame: Build Qt 6
+name: Build Qt 6
 on:
   push:
 
