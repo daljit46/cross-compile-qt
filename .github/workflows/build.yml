@@ -1,4 +1,4 @@
-name: Build Qt 6
+ame: Build Qt 6
 on:
   push:
 
@@ -20,6 +20,9 @@ jobs:
         ninja-build
         libgl1-mesa-dev
         libglu1-mesa-dev
+        mesa-common-dev
+        libgles2-mesa-dev
+        libegl1-mesa-dev
 
     - name: Install Clang 17
       run: |
